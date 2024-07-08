@@ -1,0 +1,30 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model DataSource {
+  id          String                     @id @default(cuid())
+  createdAt   DateTime                   @default(now())
+  updatedAt   DateTime                   @updatedAt
+  name        String?
+  url         String?
+  periodicity EnumDataSourcePeriodicity?
+}
+
+model FinancialData {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  date      DateTime?
+  value     Float?
+  source    String?
+}
+
+enum EnumDataSourcePeriodicity {
+  Option1
+}
